@@ -1,18 +1,26 @@
-<h1>Editar Producto</h1>
+@extends('layouts.app')
 
-<form action="{{ route('productos.update', $producto->id) }}" method="POST">
-    @csrf
-    @method('PUT') 
+@section('content')
+    <h2>Editar Producto</h2>
 
-    <label>Nombre del Producto:</label><br>
-    <input type="text" name="nombre" value="{{ $producto->nombre }}" required><br><br>
+    <div class="card-form">
+        <form action="{{ route('productos.update', $producto->id) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-    <label>Precio:</label><br>
-    <input type="number" step="0.01" name="precio" value="{{ $producto->precio }}" required><br><br>
+            <label>Nombre del Producto</label>
+            <input type="text" name="nombre" value="{{ $producto->nombre }}" required>
 
-    <label>Stock:</label><br>
-    <input type="number" name="stock" value="{{ $producto->stock }}" required><br><br>
+            <label>Precio (€)</label>
+            <input type="number" step="0.01" name="precio" value="{{ $producto->precio }}" required>
 
-    <button type="submit">Actualizar Producto</button>
-    <a href="{{ route('productos.index') }}">Cancelar</a>
-</form>
+            <label>Stock Actual</label>
+            <input type="number" name="stock" value="{{ $producto->stock }}" required>
+
+            <div style="margin-top: 10px;">
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                <a href="{{ route('productos.index') }}" style="margin-left: 15px; color: #64748b; text-decoration: none;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+@endsection

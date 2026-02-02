@@ -12,3 +12,6 @@ Route::resource('productos', ProductoController::class);
 Route::resource('proveedores', ProveedorController::class);
 Route::resource('empleados', EmpleadoController::class);
 Route::resource('pedidos', PedidoController::class);
+Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');

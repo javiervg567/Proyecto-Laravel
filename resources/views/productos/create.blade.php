@@ -1,16 +1,24 @@
-<h1>Añadir Producto</h1>
+@extends('layouts.app')
 
-<form action="{{ route('productos.store') }}" method="POST">
-    @csrf
-    <label>Nombre del Producto:</label><br>
-    <input type="text" name="nombre" required><br><br>
+@section('content')
+    <h2>Añadir Nuevo Producto</h2>
 
-    <label>Precio:</label><br>
-    <input type="number" step="0.01" name="precio" required><br><br>
+    <div class="card-form">
+        <form action="{{ route('productos.store') }}" method="POST">
+            @csrf
+            <label>Nombre del Producto</label>
+            <input type="text" name="nombre" placeholder="Nombre del artículo" required>
 
-    <label>Stock Inicial:</label><br>
-    <input type="number" name="stock" required><br><br>
+            <label>Precio (€)</label>
+            <input type="number" step="0.01" name="precio" placeholder="0.00" required>
 
-    <button type="submit">Guardar Producto</button>
-    <a href="{{ route('productos.index') }}">Volver</a>
-</form>
+            <label>Stock Inicial</label>
+            <input type="number" name="stock" placeholder="Cantidad disponible" required>
+
+            <div style="margin-top: 10px;">
+                <button type="submit" class="btn btn-primary">Guardar Producto</button>
+                <a href="{{ route('productos.index') }}" style="margin-left: 15px; color: #64748b; text-decoration: none;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+@endsection

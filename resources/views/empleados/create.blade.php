@@ -1,19 +1,27 @@
-<h1>Nuevo Empleado</h1>
+@extends('layouts.app')
 
-<form action="{{ route('empleados.store') }}" method="POST">
-    @csrf
-    <label>Nombre Completo:</label><br>
-    <input type="text" name="nombre" required><br><br>
+@section('content')
+    <h2>Alta de Nuevo Empleado</h2>
 
-    <label>Puesto / Cargo:</label><br>
-    <input type="text" name="puesto" required><br><br>
+    <div class="card-form">
+        <form action="{{ route('empleados.store') }}" method="POST">
+            @csrf
+            <label>Nombre Completo</label>
+            <input type="text" name="nombre" placeholder="Nombre y apellidos" required>
 
-    <label>Sueldo Bruto:</label><br>
-    <input type="number" step="0.01" name="sueldo" required><br><br>
+            <label>Puesto o Cargo</label>
+            <input type="text" name="puesto" placeholder="Ej: Gerente, Vendedor..." required>
 
-    <label>Fecha de Ingreso:</label><br>
-    <input type="date" name="fecha_ingreso" required><br><br>
+            <label>Sueldo Bruto Mensual</label>
+            <input type="number" step="0.01" name="sueldo" placeholder="0.00" required>
 
-    <button type="submit">Guardar Empleado</button>
-    <a href="{{ route('empleados.index') }}">Cancelar</a>
-</form>
+            <label>Fecha de Contratación</label>
+            <input type="date" name="fecha_ingreso" value="{{ date('Y-m-d') }}" required>
+
+            <div style="margin-top: 10px;">
+                <button type="submit" class="btn btn-primary">Registrar Empleado</button>
+                <a href="{{ route('empleados.index') }}" style="margin-left: 15px; color: #64748b; text-decoration: none;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+@endsection

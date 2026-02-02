@@ -17,8 +17,18 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request) {
-        // Guardamos los datos que vienen del formulario
         Cliente::create($request->all());
         return redirect()->route('clientes.index')->with('success', 'Cliente creado!');
+    }
+    public function destroy(Cliente $cliente)
+    {
+        if ($cliente->pedidos()->count() > 0) {
+            return redirect()->route('clientes.index')
+                            ->with('error', 'No se puede eliminar, este cliente tiene pedidos en el historial.');
+        }
+
+        $cliente->delete();
+        return redirect()->route('clientes.index')
+                        ->with('success', 'Cliente eliminado correctamente.');
     }
 }

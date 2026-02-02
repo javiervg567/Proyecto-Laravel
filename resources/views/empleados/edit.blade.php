@@ -1,21 +1,29 @@
-<h1>Editar Ficha de Empleado</h1>
+@extends('layouts.app')
 
-<form action="{{ route('empleados.update', $empleado->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+@section('content')
+    <h2>Editar Empleado</h2>
 
-    <label>Nombre Completo:</label><br>
-    <input type="text" name="nombre" value="{{ $empleado->nombre }}" required><br><br>
+    <div class="card-form">
+        <form action="{{ route('empleados.update', $empleado->id) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-    <label>Puesto / Cargo:</label><br>
-    <input type="text" name="puesto" value="{{ $empleado->puesto }}" required><br><br>
+            <label>Nombre Completo</label>
+            <input type="text" name="nombre" value="{{ $empleado->nombre }}" required>
 
-    <label>Sueldo Bruto:</label><br>
-    <input type="number" step="0.01" name="sueldo" value="{{ $empleado->sueldo }}" required><br><br>
+            <label>Puesto</label>
+            <input type="text" name="puesto" value="{{ $empleado->puesto }}" required>
 
-    <label>Fecha de Ingreso:</label><br>
-    <input type="date" name="fecha_ingreso" value="{{ $empleado->fecha_ingreso }}" required><br><br>
+            <label>Sueldo</label>
+            <input type="number" step="0.01" name="sueldo" value="{{ $empleado->sueldo }}" required>
 
-    <button type="submit">Actualizar Datos</button>
-    <a href="{{ route('empleados.index') }}">Cancelar</a>
-</form>
+            <label>Fecha de Ingreso</label>
+            <input type="date" name="fecha_ingreso" value="{{ $empleado->fecha_ingreso }}" required>
+
+            <div style="margin-top: 10px;">
+                <button type="submit" class="btn btn-primary">Actualizar Datos</button>
+                <a href="{{ route('empleados.index') }}" style="margin-left: 15px; color: #64748b; text-decoration: none;">Volver al listado</a>
+            </div>
+        </form>
+    </div>
+@endsection
