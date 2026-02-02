@@ -33,10 +33,19 @@ Sigue estos pasos para poner en marcha el proyecto en tu entorno local:
     Configura las credenciales de tu base de datos en el archivo .env:
         DB_DATABASE=crm-proyecto
         DB_USERNAME=root
-        DB_PASSWORD= ""
+        DB_PASSWORD= " "
 4. **Generar la clave de la aplicación:**
     php artisan key:generate
 5. **Ejecutar migraciones**
     php artisan migrate
 6. **Iniciar el servidor**
     php artisan serve
+
+## LISTO!
+Ya puedes hacer uso de CRMValle
+
+## **Estructura de la Base de Datos**
+El proyecto incluye un archivo llamado crm-proyecto_backup.sql en la raíz (o carpeta /sql) que contiene la estructura de las tablas y los datos de prueba necesarios para evaluar el funcionamiento de los 5 CRUDs.
+
+## **Autor**
+Desarrollado por Javier Valle Gallegos para la Primera Entrega.
