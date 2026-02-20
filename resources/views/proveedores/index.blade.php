@@ -52,4 +52,21 @@
             </tbody>
         </table>
     </div>
+        <div class="pagination-wrapper">
+    <div class="pagination-wrapper">
+    
+    @php $itemPaginado = $pedidos ?? $productos ?? $clientes ?? $proveedores ?? $empleados ?? null; @endphp
+
+    @if ($itemPaginado && $itemPaginado->hasPages())
+        {{ $itemPaginado->links() }}
+    @else
+        <nav>
+            <ul class="pagination">
+                <li class="disabled"><span class="page-link">« Anterior</span></li>
+                <li class="active"><span class="page-link">1</span></li>
+                <li class="disabled"><span class="page-link">Siguiente »</span></li>
+            </ul>
+        </nav>
+    @endif
+</div>
 @endsection

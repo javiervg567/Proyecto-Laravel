@@ -13,7 +13,7 @@
     </div>
 
     <div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden;">
-        <table id="tabla-pedidos" style="width: 100%; border-collapse: collapse; text-align: left;">
+        <table id="tabla-pedidos" class="table" style="width: 100%; border-collapse: collapse; text-align: left;">
             <thead>
                 <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
                     <th style="padding: 16px 20px; color: #475569; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">ID</th>
@@ -32,10 +32,10 @@
                             #{{ $pedido->id }}
                         </td>
                         <td style="padding: 16px 20px; font-weight: 600; color: #1e293b;">
-                            {{ $pedido->cliente->nombre }}
+                            {{ $pedido->cliente->nombre ?? 'N/A' }}
                         </td>
                         <td style="padding: 16px 20px; color: #64748b;">
-                            {{ $pedido->producto->nombre }}
+                            {{ $pedido->producto->nombre ?? 'N/A' }}
                         </td>
                         <td style="padding: 16px 20px; color: #64748b;">
                             {{ $pedido->cantidad }}
@@ -51,7 +51,7 @@
                                 <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-delete" onclick="return confirm('¿Seguro que desea anular este pedido?')">
+                                    <button type="submit" style="background: #fee2e2; color: #991b1b; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer;" onclick="return confirm('¿Seguro que desea anular este pedido?')">
                                         Eliminar
                                     </button>
                                 </form>
@@ -61,15 +61,26 @@
                         </td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="7" style="padding: 40px; text-align: center; color: #94a3b8;">
-                            No se han encontrado pedidos registrados en el sistema.
-                        </td>
-                    </tr>
-                @endforelse
+                    @endforelse
             </tbody>
         </table>
     </div>
 
-    <div style="margin-top: 20px;"></div>
+    <div class="pagination-wrapper">
+    <div class="pagination-wrapper">
+    {{-- Buscamos cualquier variable que venga paginada (pedidos, clientes, productos...) --}}
+    @php $itemPaginado = $pedidos ?? $productos ?? $clientes ?? $proveedores ?? $empleados ?? null; @endphp
+
+    @if ($itemPaginado && $itemPaginado->hasPages())
+        {{ $itemPaginado->links() }}
+    @else
+        <nav>
+            <ul class="pagination">
+                <li class="disabled"><span class="page-link">« Anterior</span></li>
+                <li class="active"><span class="page-link">1</span></li>
+                <li class="disabled"><span class="page-link">Siguiente »</span></li>
+            </ul>
+        </nav>
+    @endif
+</div>
 @endsection

@@ -23,141 +23,119 @@
             min-height: 100vh;
         }
 
-        nav {
+        #crm-sidebar {
             width: 300px; 
-            background: var(--sidebar-bg);
+            background: var(--sidebar-bg) !important;
             color: white;
             padding: 50px 20px;
             box-shadow: -4px 0 15px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
         }
 
-        .logo-wrapper {
-            text-align: center;
-            margin-bottom: 50px;
+        .pagination-wrapper {
+            margin: 40px 0;
+            width: 100%;
+            display: flex !important;
+            justify-content: center !important;
         }
 
-        .logo-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            border-radius: 15px;
-            display: inline-block;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 20px;
+        .pagination-wrapper nav p,
+        .pagination-wrapper nav > div:first-child {
+            display: none !important;
         }
 
-        .logo-container img {
-            width: 100px;
-            height: auto;
-            display: block;
+        .pagination-wrapper ul, 
+        .pagination-wrapper .pagination {
+            display: flex !important;
+            flex-direction: row !important; 
+            list-style: none !important;
+            list-style-type: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            gap: 8px !important;
         }
 
-        .brand-name {
-            font-size: 1.4rem; 
-            font-weight: 700;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: white;
-            margin: 0;
+        .pagination-wrapper li {
+            list-style: none !important;
+            list-style-type: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block !important;
+        }
+        
+        .pagination-wrapper li::before,
+        .pagination-wrapper li::marker {
+            content: none !important;
+            display: none !important;
         }
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0 0 0;
-        }
-
-        nav ul li {
-            margin-bottom: 12px;
-        }
-
-        nav ul li a {
-            color: var(--text-nav);
-            text-decoration: none;
-            font-size: 1.15rem; 
-            display: block;
-            padding: 15px 25px;
-            border-radius: 10px;
+        .pagination-wrapper li a, 
+        .pagination-wrapper li span,
+        .pagination-wrapper .page-link {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-width: 42px !important;
+            height: 42px !important;
+            padding: 0 12px !important;
+            background: white !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #475569 !important;
+            text-decoration: none !important;
+            border-radius: 10px !important;
+            font-weight: 700 !important;
+            font-size: 0.9rem !important;
             transition: all 0.2s ease;
-            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        nav ul li a:hover {
-            background: var(--sidebar-hover);
-            color: var(--primary);
-            padding-left: 30px;
+        .pagination-wrapper li.active span,
+        .pagination-wrapper li[aria-current="page"] span,
+        .pagination-wrapper .page-item.active .page-link {
+            background: var(--sidebar-bg) !important;
+            color: white !important;
+            border-color: var(--sidebar-bg) !important;
         }
 
-        main {
-            flex: 1;
-            padding: 40px;
-            max-width: calc(100vw - 300px);
+        .pagination-wrapper li a:hover {
+            background: #f1f5f9 !important;
+            border-color: var(--primary) !important;
+            color: var(--primary) !important;
+            transform: translateY(-1px);
         }
 
-        .alert {
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 35px;
-            font-size: 1rem;
-            border-left: 5px solid transparent;
+        .pagination-wrapper li.disabled span {
+            background: #f8fafc !important;
+            color: #cbd5e1 !important;
+            border-color: #e2e8f0 !important;
+            cursor: not-allowed !important;
+            opacity: 0.6;
         }
 
-        .alert-success {
-            background: #f0fdf4;
-            color: #166534;
-            border-left-color: var(--primary);
-        }
+        #crm-sidebar .logo-wrapper { text-align: center; margin-bottom: 50px; }
+        #crm-sidebar .logo-container { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; display: inline-block; border: 1px solid rgba(255, 255, 255, 0.2); }
+        #crm-sidebar .logo-container img { width: 100px; height: auto; display: block; }
+        #crm-sidebar .brand-name { font-size: 1.4rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: white; margin-top: 15px; }
+        #crm-sidebar ul { list-style: none; padding: 0; margin: 20px 0 0 0; }
+        #crm-sidebar ul li { margin-bottom: 12px; }
+        #crm-sidebar ul li a { color: var(--text-nav); text-decoration: none; font-size: 1.15rem; display: block; padding: 15px 25px; border-radius: 10px; transition: all 0.2s ease; font-weight: 500; }
+        #crm-sidebar ul li a:hover { background: var(--sidebar-hover); color: var(--primary); padding-left: 30px; }
 
-        .alert-error {
-            background: #fef2f2;
-            color: #991b1b;
-            border-left-color: #ef4444;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
-            margin-bottom: 25px;
-        }
-
-        .btn-primary:hover {
-            background-color: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
-            color: white;
-        }
-
-        .page-title {
-            font-size: 1.8rem;
-            color: #1e293b;
-            margin-bottom: 30px;
-            font-weight: 700;
-        }
+        main { flex: 1; padding: 40px; max-width: calc(100vw - 300px); }
     </style>
 </head>
 <body>
 
     @auth
-    <nav>
+    <nav id="crm-sidebar">
         <div class="logo-wrapper">
             <div class="logo-container">
                 <img src="{{ asset('images/logo.png') }}" alt="CRMVALLE">
             </div>
             <p class="brand-name">CRMVALLE</p>
         </div>
-
         <ul>
             <li><a href="{{ url('/home') }}">Dashboard</a></li>
             <li><a href="{{ route('clientes.index') }}">Clientes</a></li>
@@ -177,58 +155,22 @@
     </nav>
     @endauth
 
-    <main style="{{ !Auth::check() ? 'max-width: 100%; flex: 1;' : '' }}">
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        @if(session('error'))
-            <div class="alert alert-error">{{ session('error') }}</div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert alert-error">
-                <ul style="margin: 0; padding-left: 20px;">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
+    <main>
         @yield('content')
     </main>
 
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-
     <script>
-    $(document).ready(function() {
-        $.fn.dataTable.ext.errMode = 'none';
-
-        
-        const tablas = [
-            '#tabla-productos', 
-            '#tabla-clientes', 
-            '#tabla-pedidos', 
-            '#tabla-proveedores', 
-            '#tabla-empleados'
-        ];
-
-        
-        tablas.forEach(function(id) {
-            if ($(id).length > 0) {
-                $(id).DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
-                    },
-                    "responsive": true,
-                    "destroy": true 
-                });
-            }
+        $(document).ready(function() {
+            $('.table').DataTable({
+                "language": { "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json" },
+                "paging": false, 
+                "info": false,
+                "destroy": true,
+                "autoWidth": false
+            });
         });
-    });
-</script>
-
+    </script>
 </body>
 </html>

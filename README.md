@@ -47,5 +47,27 @@ Ya puedes hacer uso de CRMValle
 ## **Estructura de la Base de Datos**
 El proyecto incluye un archivo llamado crm_proyecto_backup.sql en la raíz (o carpeta /sql) que contiene la estructura de las tablas y los datos de prueba necesarios para evaluar el funcionamiento de los 5 CRUDs.
 
+## **NOVEDADES DE ESTA SEGUNDA ENTREGA**
+1. **Gestión de Archivos y Multimedia**
+·Subida de Imágenes: Se ha implementado la capacidad de adjuntar fotografías a los productos para una identificación visual rápida.
+·Gestión de Documentos PDF: Cada producto permite la subida y descarga de fichas técnicas o manuales en formato PDF.
+·Almacenamiento Seguro: Uso del sistema de archivos de Laravel con enlace simbólico (storage:link) para gestionar los recursos.
+
+2. **Control de Acceso y Seguridad **
+·Se ha implementado un sistema de roles para proteger la integridad de los datos:
+·Rol Administrador: Acceso total al sistema, incluyendo la capacidad de Eliminar registros.
+·Rol Usuario: Permisos limitados para Visualizar, Crear y Editar, sin acceso a funciones de borrado.
+·Protección de Vistas: Uso de directivas @if(Auth::user()->role === 'admin') para ocultar elementos críticos en la interfaz.
+
+3. **Interfaz de Usuario (UI) y Experiencia (UX)**
+·Dashboard Avanzado: Panel de control con métricas en tiempo real (totales de clientes, productos y pedidos) y tabla de actividad reciente.
+·Formularios Premium: Diseño de formularios centrados en tarjetas con validación visual y estados de enfoque.
+·Tablas Limpias: Sustitución de iconos por botones de texto minimalistas con códigos de colores (Azul para edición, Rojo para borrado).
+·Feedback Visual: Uso de "badges" de colores para identificar estados (ej: stock bajo, pedidos completados).
+
+**Inicio de sesión**
+Admin: admin@crmvalle.com // admin123
+Empleado: vendedor@crmvalle.com // user123
+
 ## **Autor**
-Desarrollado por Javier Valle Gallegos para la Primera Entrega.
+Desarrollado por Javier Valle Gallegos para la Segunda Entrega.

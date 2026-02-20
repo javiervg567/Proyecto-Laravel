@@ -10,13 +10,13 @@ use Illuminate\Http\Request;
 class PedidoController extends Controller
 {
     public function index() {
-        $pedidos = Pedido::with(['cliente', 'producto'])->get();
+        $pedidos = Pedido::with(['cliente', 'producto'])->paginate(10);
         return view('pedidos.index', compact('pedidos'));
     }
 
     public function create() {
-        $clientes = Cliente::all();
-        $productos = Producto::all();
+        $clientes = Cliente::paginate(10);
+        $productos = Producto::paginate(10);
         return view('pedidos.create', compact('clientes', 'productos'));
     }
 
@@ -54,8 +54,8 @@ class PedidoController extends Controller
     public function edit($id) {
         // Añadido: Método edit para poder modificar pedidos existentes
         $pedido = Pedido::findOrFail($id);
-        $clientes = Cliente::all();
-        $productos = Producto::all();
+        $clientes = Cliente::paginate(10);
+        $productos = Producto::paginate(10);
         return view('pedidos.edit', compact('pedido', 'clientes', 'productos'));
     }
 

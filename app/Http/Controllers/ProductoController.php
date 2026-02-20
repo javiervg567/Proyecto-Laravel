@@ -11,7 +11,7 @@ class ProductoController extends Controller
     // Listar todos los productos
     public function index()
     {
-        $productos = Producto::all();
+        $productos = Producto::paginate(2);
         return view('productos.index', compact('productos'));
     }
 
