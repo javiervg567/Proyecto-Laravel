@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ProveedorController extends Controller
 {
     public function index() {
-        $proveedores = Proveedor::paginate(10);
+        $proveedores = Proveedor::all();
         return view('proveedores.index', compact('proveedores'));
     }
 
@@ -17,21 +17,44 @@ class ProveedorController extends Controller
     }
 
     public function store(Request $request) {
-        Proveedor::create($request->all());
-        return redirect()->route('proveedores.index');
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:proveedores,email',
+            'telefono' => 'nullable|string',
+            'empresa' => 'nullable|string',
+        ]);
+
+        Proveedor::create($data);
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor creado con éxito.');
     }
 
-    public function edit(Proveedor $proveedore) {
+    public function edit($id) {
+        $proveedore = Proveedor::findOrFail($id);
         return view('proveedores.edit', compact('proveedore'));
     }
 
-    public function update(Request $request, Proveedor $proveedore) {
-        $proveedore->update($request->all());
-        return redirect()->route('proveedores.index');
+    public function update(Request $request, $id) {
+        $proveedore = Proveedor::findOrFail($id);
+
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:proveedores,email,' . $id,
+            'telefono' => 'nullable|string',
+            'empresa' => 'nullable|string',
+        ]);
+
+        $proveedore->update($data);
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor actualizado correctamente.');
     }
 
-    public function destroy(Proveedor $proveedore) {
+    public function destroy($id) {
+        // Control de seguridad por rol
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('proveedores.index')->with('error', 'Acceso denegado.');
+        }
+
+        $proveedore = Proveedor::findOrFail($id);
         $proveedore->delete();
-        return redirect()->route('proveedores.index');
+        return redirect()->route('proveedores.index')->with('success', 'Proveedor eliminado.');
     }
 }

@@ -2,9 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
 {
-    protected $fillable = ['nombre', 'precio', 'stock'];
+    use HasFactory;
+
+    protected $fillable = ['nombre', 'precio', 'stock', 'imagen', 'archivo_pdf'];
+
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class);
+    }
 }

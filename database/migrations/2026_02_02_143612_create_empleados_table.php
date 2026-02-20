@@ -10,13 +10,13 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('empleados', function (Blueprint $table) {
+    {
+        Schema::create('empleados', function (Blueprint $table) {
         $table->id();
         $table->string('nombre');
+        $table->string('email')->unique();
         $table->string('puesto');
-        $table->decimal('sueldo', 10, 2);
-        $table->date('fecha_ingreso');
+        $table->string('telefono')->nullable();
         $table->timestamps();
     });
 }

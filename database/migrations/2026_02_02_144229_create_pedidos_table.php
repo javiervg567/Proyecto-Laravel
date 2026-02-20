@@ -9,15 +9,12 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
-{
-    Schema::create('pedidos', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('pedidos', function (Blueprint $table) {
         $table->id();
-        // Relación con Clientes: Si se borra el cliente, se borran sus pedidos (onDelete cascade)
-        $table->foreignId('cliente_id')->constrained()->onDelete('cascade');
-        // Relación con Productos
-        $table->foreignId('producto_id')->constrained()->onDelete('cascade');
-        
+        $table->foreignId('cliente_id')->constrained('clientes')->onDelete('restrict');
+        $table->foreignId('producto_id')->constrained('productos')->onDelete('restrict');
         $table->integer('cantidad');
         $table->decimal('total', 10, 2);
         $table->date('fecha_pedido');

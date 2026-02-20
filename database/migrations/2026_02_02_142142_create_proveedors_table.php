@@ -9,14 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-   public function up(): void
-{
-    Schema::create('proveedors', function (Blueprint $table) {
+    public function up(): void
+    {
+        Schema::create('proveedores', function (Blueprint $table) {
         $table->id();
-        $table->string('nombre_empresa');
+        $table->string('nombre');
         $table->string('email')->unique();
-        $table->string('telefono');
-        $table->string('categoria'); // Ejemplo: Alimentación, Tecnología, etc.
+        $table->string('telefono')->nullable();
+        $table->string('empresa')->nullable();
         $table->timestamps();
     });
 }

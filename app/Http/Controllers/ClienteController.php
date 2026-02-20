@@ -17,14 +17,49 @@ class ClienteController extends Controller
     }
 
     public function store(Request $request) {
-        Cliente::create($request->all());
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:clientes,email',
+            'telefono' => 'nullable|string',
+            'direccion' => 'nullable|string',
+        ]);
+
+        Cliente::create($data);
         return redirect()->route('clientes.index')->with('success', 'Cliente creado!');
     }
-    public function destroy(Cliente $cliente)
+
+    public function edit($id) {
+        $cliente = Cliente::findOrFail($id);
+        return view('clientes.edit', compact('cliente'));
+    }
+
+    public function update(Request $request, $id) {
+        $cliente = Cliente::findOrFail($id);
+
+        $data = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|unique:clientes,email,' . $id,
+            'telefono' => 'nullable|string',
+            'direccion' => 'nullable|string',
+        ]);
+
+        $cliente->update($data);
+        return redirect()->route('clientes.index')->with('success', 'Cliente actualizado correctamente.');
+    }
+
+    public function destroy($id)
     {
+        // Validación de rol administrativo
+        if (auth()->user()->role !== 'admin') {
+            return redirect()->route('clientes.index')->with('error', 'Acceso denegado: Solo administradores.');
+        }
+
+        $cliente = Cliente::findOrFail($id);
+
+        // Verificación de integridad: Evita borrar clientes con pedidos asociados
         if ($cliente->pedidos()->count() > 0) {
             return redirect()->route('clientes.index')
-                            ->with('error', 'No se puede eliminar, este cliente tiene pedidos en el historial.');
+                             ->with('error', 'No se puede eliminar, este cliente tiene pedidos en el historial.');
         }
 
         $cliente->delete();

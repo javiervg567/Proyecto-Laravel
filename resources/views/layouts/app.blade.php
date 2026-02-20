@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRMVALLE - Gestión Empresarial</title>
@@ -138,52 +139,17 @@
             color: white;
         }
 
-
         .page-title {
             font-size: 1.8rem;
             color: #1e293b;
             margin-bottom: 30px;
             font-weight: 700;
         }
-
-
-        .btn-action {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 1.1rem; 
-            font-weight: 500;
-            text-decoration: none;
-        transition: all 0.2s;
-            cursor: pointer;
-            font-family: inherit;
-            border: none;
-            background: none;
-            text-align: center;
-            min-width: 80px; 
-        }
-
-        .btn-edit {
-            color: #10b981; 
-        }
-
-        .btn-edit:hover {
-            color: #059669;
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .btn-delete {
-            color: #ef4444; 
-        }
-
-        .btn-delete:hover {
-            color: #b91c1c;
-            background: rgba(239, 68, 68, 0.1);
-        }
     </style>
 </head>
 <body>
 
+    @auth
     <nav>
         <div class="logo-wrapper">
             <div class="logo-container">
@@ -193,30 +159,76 @@
         </div>
 
         <ul>
-            <li><a href="{{ url('/') }}">Dashboard</a></li>
+            <li><a href="{{ url('/home') }}">Dashboard</a></li>
             <li><a href="{{ route('clientes.index') }}">Clientes</a></li>
             <li><a href="{{ route('productos.index') }}">Productos</a></li>
             <li><a href="{{ route('pedidos.index') }}">Pedidos</a></li>
             <li><a href="{{ route('proveedores.index') }}">Proveedores</a></li>
             <li><a href="{{ route('empleados.index') }}">Empleados</a></li>
+            <li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" style="background: none; border: none; color: var(--text-nav); font-size: 1.15rem; font-weight: 500; cursor: pointer; padding: 15px 25px; width: 100%; text-align: left; border-radius: 10px;">
+                        Cerrar Sesión
+                    </button>
+                </form>
+            </li>
         </ul>
     </nav>
+    @endauth
 
-    <main>
+    <main style="{{ !Auth::check() ? 'max-width: 100%; flex: 1;' : '' }}">
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+            <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         @if(session('error'))
+            <div class="alert alert-error">{{ session('error') }}</div>
+        @endif
+
+        @if ($errors->any())
             <div class="alert alert-error">
-                {{ session('error') }}
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 
         @yield('content')
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+        $.fn.dataTable.ext.errMode = 'none';
+
+        
+        const tablas = [
+            '#tabla-productos', 
+            '#tabla-clientes', 
+            '#tabla-pedidos', 
+            '#tabla-proveedores', 
+            '#tabla-empleados'
+        ];
+
+        
+        tablas.forEach(function(id) {
+            if ($(id).length > 0) {
+                $(id).DataTable({
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+                    },
+                    "responsive": true,
+                    "destroy": true 
+                });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
